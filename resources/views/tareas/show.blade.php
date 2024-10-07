@@ -130,31 +130,29 @@
                                 <textarea id="descripcion" rows="4"
                                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">{{ $tarea->descripcion }}</textarea>
                             </div>
-
+                            <!--
                             <div class="mb-5 grid w-full sm:w-2/3 mx-auto ">
                                 <p class="block my-2 text-md font-medium text-gray-900">Elementos afectados: </p>
                                 <textarea id="elementos" rows="4"
                                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">{{ $tarea->elementos }}</textarea>
                             </div>
-
                             <div class="mb-5 grid w-full sm:w-2/3 mx-auto ">
                                 <p class="block my-2 text-md font-medium text-gray-900">Diagnostico de la situacion :
                                 </p>
                                 <textarea id="diagnostico" rows="4"
                                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">{{ $tarea->diagnostico }}</textarea>
                             </div>
-
                             <div class="mb-5 grid w-full sm:w-2/3 mx-auto ">
                                 <p class="block my-2 text-md font-medium text-gray-900">Acciones ejecutadas : </p>
                                 <textarea id="acciones" rows="4"
                                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">{{ $tarea->acciones }}</textarea>
                             </div>
-
                             <div class="mb-5 grid w-full sm:w-2/3 mx-auto ">
                                 <p class="block my-2 text-md font-medium text-gray-900">Observaciones : </p>
                                 <textarea id="observaciones" rows="4"
                                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">{{ $tarea->observaciones }}</textarea>
                             </div>
+                            !-->
                             <div class="mb-5 grid w-full sm:w-2/3 mx-auto ">
                                 <p>Personal asignado :</p>
                                 <?php $personal_asignado = 0; ?>

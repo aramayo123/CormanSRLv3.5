@@ -55,22 +55,39 @@
                             <x-mi-input-error :messages="$errors->get('cliente_id')" />
                         </div>
                         <div class="mb-5">
-                            <label for="sucursal_id" class="block mb-2 text-sm font-medium text-gray-900 ">Seleccione una
-                                sucursal <p class="inline-block text-red-500">*</p></label>
-                            <select id="sucursal_id" name="sucursal_id"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                                <option value="">Ninguna seleccion</option>
-                                @foreach ($sucursales as $sucursal)
-                                    <option value="{{ $sucursal->id }}" <?php echo $tarea->sucursal_id == $sucursal->id ? 'selected' : ''; ?>> {{ $sucursal->numero . " " .$sucursal->sucursal }}
-                                    </option>
-                                @endforeach
-                            </select>
+                            <p class="inline-block mb-2 text-sm font-medium text-gray-900 ">Seleccione una sucursal
+                            <p class="inline-block text-red-500 ml-2"> * </p>
+                            </p>
+                            <div class="relative group">
+                                <button id="dropdown-button" type="button"
+                                    class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500">
+                                    <span class="mr-2">{{ $tarea->Sucursal->numero . ' ' . $tarea->Sucursal->sucursal }}</span>
+                                </button>
+                                <div id="dropdown-menu" style="max-height: 300px;"
+                                    class="hidden absolute w-full mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 p-1 space-y-1">
+                                    <!-- Search input -->
+                                    <input id="search-input"
+                                        class="block w-full px-4 py-2 text-gray-800 border rounded-md  border-gray-300 focus:outline-none"
+                                        type="text" placeholder="Buscar sucursal" autocomplete="off">
+                                    <!-- Dropdown content goes here -->
+                                    <div class="overflow-y-auto "style="max-height: 200px;">
+                                        @foreach ($sucursales as $sucursal)
+                                            <div class="option">
+                                                <input id="default-radio-{{ $sucursal->id }}" type="radio" value="{{ $sucursal->id }}" name="sucursal_id" class="hidden w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500" <?php echo $tarea->Sucursal->id == $sucursal->id ? 'checked' : ''; ?> placeholder="{{ $sucursal->numero . ' ' . $sucursal->sucursal }}">
+                                                <label for="default-radio-{{ $sucursal->id }}" class="w-full inline-block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md">{{ $sucursal->numero . ' ' . $sucursal->sucursal }}</label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+
+                                </div>
+                            </div>
                             <x-mi-input-error :messages="$errors->get('sucursal_id')" />
                         </div>
                         <div class="mb-5 ocultar">
                             <label for="descripcion" class="block mb-2 text-sm font-medium text-gray-900 ">Escriba una descripcion: <p class="inline-block text-gray-500">(opcional)</p></label>
                             <textarea id="descripcion" name="descripcion" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 " placeholder="Intente separar con *">{{ $tarea->descripcion }}</textarea>
                         </div>
+                        <!--
                         <div class="mb-5 ocultar">
                             <label for="elementos" class="block mb-2 text-sm font-medium text-gray-900 ">Escriba los elementos afectados: <p class="inline-block text-gray-500">(opcional)</p></label>
                             <textarea id="elementos" name="elementos" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 " placeholder="Intente separar con *">{{ $tarea->elementos }}</textarea>
@@ -83,10 +100,11 @@
                             <label for="acciones" class="block mb-2 text-sm font-medium text-gray-900 ">Escriba las acciones ejecutadas: <p class="inline-block text-gray-500">(opcional)</p></label>
                             <textarea id="acciones" name="acciones" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 " placeholder="Intente separar con *">{{ $tarea->acciones }}</textarea>
                         </div>
-                        <div class="mb-5">
+                        <div class="mb-5 ocultar">
                             <label for="observaciones" class="block mb-2 text-sm font-medium text-gray-900 ">Escriba las observaciones: <p class="inline-block text-gray-500">(opcional)</p></label>
                             <textarea id="observaciones" name="observaciones" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 " placeholder="Intente separar con *">{{ $tarea->observaciones }}</textarea>
                         </div>
+                        !-->
                         <div class="mb-5">
                             <label for="fecha_mail" class="block mb-2 text-sm font-medium text-gray-900 ">Seleccione la fecha del trabajo a realizar <p class="inline-block text-gray-500">(opcional)</p></label>
                             <input type="date" id="fecha_mail" name="fecha_mail" value="{{ $tarea->fecha_mail }}"
@@ -225,4 +243,46 @@
             }
         }
     );
+
+    const dropdownButton = document.getElementById('dropdown-button');
+    const dropdownMenu = document.getElementById('dropdown-menu');
+    const searchInput = document.getElementById('search-input');
+    let isOpen = true; // Set to true to open the dropdown by default
+
+    // Function to toggle the dropdown state
+    function toggleDropdown() {
+        isOpen = !isOpen;
+        dropdownMenu.classList.toggle('hidden', !isOpen);
+    }
+
+    // Set initial state
+    toggleDropdown();
+
+    dropdownButton.addEventListener('click', () => {
+        toggleDropdown();
+    });
+
+    // Add event listener to filter items based on input
+    searchInput.addEventListener('input', () => {
+        const searchTerm = searchInput.value.toLowerCase();
+        const items = dropdownMenu.querySelectorAll('.option');
+
+        items.forEach((item) => {
+            const text = item.textContent.toLowerCase();
+            if (text.includes(searchTerm)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+    const radioButtons = document.querySelectorAll('.option');
+    radioButtons.forEach(radio => {
+        radio.addEventListener('change', event => {
+            // Acción a realizar cuando se selecciona una opción
+            const selectedValue = event.target.value;
+            dropdownButton.innerText = event.target.placeholder;
+            toggleDropdown();
+        });
+    });
 </script>

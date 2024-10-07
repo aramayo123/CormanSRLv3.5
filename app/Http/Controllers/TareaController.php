@@ -55,8 +55,9 @@ class TareaController extends Controller
             foreach($aux as $tarea){
                 array_push($tareas, $tarea->Tarea);
             }
-        }else
+        }else{
             $tareas = Tarea::all();
+        }
     
         return view("tareas.index", compact('tareas'));
     }

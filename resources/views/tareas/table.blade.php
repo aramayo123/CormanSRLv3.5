@@ -41,10 +41,13 @@
                 @endcan
             </div>
             <div class="overflow-x-auto px-5">
-                <table data-order='[[ 7, "desc" ]]' data-page-length='25' class="w-full text-sm text-left text-gray-500 my-1 m-5 p-5" id="tabla">
+                <table data-order='[[ 0, "desc" ]]' data-page-length='100' class="w-full text-sm text-left text-gray-500 my-1 m-5 p-5" id="tabla">
                     @if (count($tareas))
                         <thead class="text-xs text-gray-700 uppercase">
                             <tr>
+                                <th scope="col"
+                                    class="rounded-xl outline outline-offset-0 outline-1 outline-gray-800">
+                                    #ID</th>
                                 <th scope="col"
                                     class="px-4 py-3 rounded-xl outline outline-offset-0 outline-1 outline-gray-800">
                                     Ticket</th>
@@ -55,16 +58,13 @@
                                     class="px-4 py-3 rounded-xl outline outline-offset-0 outline-1 outline-gray-800">
                                     Sucursal</th>
                                 <th scope="col"
-                                    class="px-4 py-3 rounded-xl text-red-500 bg-red-200 outline outline-offset-0 outline-1 outline-gray-800">
-                                    Prioridad</th>
-                                <th scope="col"
-                                    class="px-4 py-3 rounded-xl text-red-500 bg-red-200 outline outline-offset-0 outline-1 outline-gray-800">
+                                    class="px-4 py-3 rounded-xl outline outline-offset-0 outline-1 outline-gray-800">
                                     Estado</th>
                                 <th scope="col"
                                     class="px-4 py-3 rounded-xl outline outline-offset-0 outline-1 outline-gray-800">
                                     Certificado</th>
                                 <th scope="col"
-                                    class="px-4 py-3 rounded-xl text-red-500 bg-red-200 outline outline-offset-0 outline-1 outline-gray-800">
+                                    class="px-4 py-3 rounded-xl outline outline-offset-0 outline-1 outline-gray-800">
                                     ATM</th>
                                 <th scope="col"
                                     class="px-4 py-3 rounded-xl outline outline-offset-0 outline-1 outline-gray-800">
@@ -79,18 +79,15 @@
                     <tbody>
                         @forelse ($tareas as $tarea)
                             <tr class="border-b">
+                                <th class="text-gray-900 whitespace-nowrap rounded-xl outline outline-offset-0 outline-1 outline-gray-800">
+                                {{ $tarea->id }}</th>
                                 <th scope="row"
                                     class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap rounded-xl outline outline-offset-0 outline-1 outline-gray-800">
                                     {{ $tarea->tipo_de_tarea == "PREVENTIVO" ? "Preventivo":$tarea->ticket }}</th>
                                 <td class="px-4 py-3 rounded-xl outline outline-offset-0 outline-1 outline-gray-800">
                                     {{ $tarea->Cliente->cliente }}</td>
                                 <td class="px-4 py-3 rounded-xl outline outline-offset-0 outline-1 outline-gray-800">
-                                    {{ $tarea->Sucursal->sucursal }}</td>
-                                <td
-                                    class="px-4 py-3 rounded-xl text-{{ $tarea->ColorTipoPrioridad() }}-500 bg-{{ $tarea->ColorTipoPrioridad() }}-200 rounded-xl outline outline-offset-0 outline-1 outline-gray-800">
-                                    <?php
-                                    echo $tarea->Prioridad ? $tarea->Prioridad->prioridad : '-';
-                                    ?></td>
+                                    {{ $tarea->Sucursal->numero . ' ' . $tarea->Sucursal->sucursal }}</td>
                                 <td
                                     class="px-4 py-3 rounded-xl text-{{ $tarea->ColorEstado() }}-500 bg-{{ $tarea->ColorEstado() }}-200 rounded-xl outline outline-offset-0 outline-1 outline-gray-800">
                                     <?php

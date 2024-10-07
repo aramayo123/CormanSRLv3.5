@@ -1,7 +1,7 @@
 let table = new DataTable('#tabla', {
     scrollY: 400,
     pageLength: 7,
-    lengthMenu: [ [5, 10, 15], [5, 10, 15] ],
+    lengthMenu: [ [10, 30, 50], [10, 30, 50] ],
     language: {
                 "sProcessing":     "Procesando...",
                 "sLengthMenu":     "Mostrar _MENU_ registros",

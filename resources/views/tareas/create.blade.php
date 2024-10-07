@@ -97,6 +97,7 @@
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
                                 placeholder="Intente separar con *"></textarea>
                         </div>
+                        <!--
                         <div class="mb-5 ocultar">
                             <label for="elementos" class="block mb-2 text-sm font-medium text-gray-900 ">Escriba los
                                 elementos afectados: <p class="inline-block text-gray-500">(opcional)</p></label>
@@ -126,6 +127,7 @@
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
                                 placeholder="Intente separar con *"></textarea>
                         </div>
+                        !-->
                         <div class="mb-5">
                             <label for="fecha_mail" id="fecha_mail_label"
                                 class="block mb-2 text-sm font-medium text-gray-900 ">Seleccione la fecha del trabajo a realizar <p class="inline-block text-gray-500">(opcional)</p></label>
@@ -143,6 +145,20 @@
                             <x-mi-input-error :messages="$errors->get('fecha_cerrado')" />
                         </div>
                         <div class="mb-5 ocultar">
+                            <label for="estado_id" class="block mb-2 text-sm font-medium text-gray-900 ">Seleccione un
+                                estado <p class="inline-block text-red-500">*</p></label>
+                            <select id="estado_id" name="estado_id"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                                <option selected value="">Ninguna seleccion</option>
+                                @foreach ($estados as $estado)
+                                    <option value="{{ $estado->id }}" <?php echo old('estado_id') == $estado->id ? 'selected' : ''; ?>>
+                                        {{ $estado->estado }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <x-mi-input-error :messages="$errors->get('estado_id')" />
+                        </div>
+                        <div class="mb-5 ocultar">
                             <label for="prioridad_id" class="block mb-2 text-sm font-medium text-gray-900 ">Seleccione
                                 una
                                 prioridad <p class="inline-block text-red-500">*</p></label>
@@ -156,20 +172,6 @@
                                 @endforeach
                             </select>
                             <x-mi-input-error :messages="$errors->get('prioridad_id')" />
-                        </div>
-                        <div class="mb-5">
-                            <label for="estado_id" class="block mb-2 text-sm font-medium text-gray-900 ">Seleccione un
-                                estado <p class="inline-block text-red-500">*</p></label>
-                            <select id="estado_id" name="estado_id"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                                <option selected value="">Ninguna seleccion</option>
-                                @foreach ($estados as $estado)
-                                    <option value="{{ $estado->id }}" <?php echo old('estado_id') == $estado->id ? 'selected' : ''; ?>>
-                                        {{ $estado->estado }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <x-mi-input-error :messages="$errors->get('estado_id')" />
                         </div>
                         <div class="mb-5">
                             <button id="dropdownSearchButton" data-dropdown-toggle="dropdownSearch"
@@ -249,12 +251,14 @@
             divsOcultar.forEach(element => {
                 element.classList.add("hidden");
             });
+            document.querySelector("#estado_id").value = "1";
             document.querySelector("#fecha_mail_label").innerHTML =
                 `Seleccione la fecha del preventivo <p class="inline-block text-red-500">*</p>`;
         } else {
             divsOcultar.forEach(element => {
                 element.classList.remove("hidden");
             });
+            document.querySelector("#estado_id").value = "";
             document.querySelector("#fecha_mail_label").innerHTML =
                 `Seleccione la fecha del trabajo a realizar <p class="inline-block text-gray-500">(opcional)</p>`;
         }
@@ -267,12 +271,14 @@
                 divsOcultar.forEach(element => {
                     element.classList.add("hidden");
                 });
+                document.querySelector("#estado_id").value = "1";
                 document.querySelector("#fecha_mail_label").innerHTML =
                     `Seleccione la fecha del preventivo <p class="inline-block text-red-500">*</p>`;
             } else {
                 divsOcultar.forEach(element => {
                     element.classList.remove("hidden");
                 });
+                document.querySelector("#estado_id").value = "";
                 document.querySelector("#fecha_mail_label").innerHTML =
                     `Seleccione la fecha del trabajo a realizar <p class="inline-block text-gray-500">(opcional)</p>`;
             }
